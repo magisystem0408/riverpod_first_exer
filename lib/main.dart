@@ -7,10 +7,15 @@ final counterProvider = StateNotifierProvider((_) => Counter());
 
 class Counter extends StateNotifier<int> {
   Counter() : super(0);
-  void increment() => state++;
+
+  void increment() {
+    state = state + 10;
+  }
+
   void decrement() => state--;
 }
 
+// Providerで管轄する範囲を決定する
 void main() {
   runApp(
     ProviderScope(
@@ -32,7 +37,7 @@ class CounterApp extends HookWidget {
           child: Text(counter.toString()),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed:() => handlePress(context),
+          onPressed: () => handlePress(context),
           child: Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
@@ -40,6 +45,6 @@ class CounterApp extends HookWidget {
   }
 }
 
-void handlePress(BuildContext context){
-  context.read(counterProvider.notifier).decrement();
+void handlePress(BuildContext context) {
+  context.read(counterProvider.notifier).increment();
 }
